@@ -1,6 +1,7 @@
-import 'package:aula_913/domain/pacote_turistico.dart';
-import 'package:aula_913/pages/propaganda_page.dart';
-import 'package:aula_913/widget/pacote_turistico_card.dart';
+
+import 'package:aula_913/pages/destaques_page.dart';
+import 'package:aula_913/pages/grid_pacotes_page.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -11,119 +12,53 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  PacoteTuristico pacote1 = PacoteTuristico(
-    imagem:
-        'https://a.cdn-hotels.com/gdcs/production97/d402/6baff29c-e43b-4caf-a9e8-5dcf1279dea0.jpg?impolicy=fcrop&w=800&h=533&q=medium',
-    titulo: 'Pacote Cancún 2022/2023',
-    transporte: 'Aéreo - Hotel All inclusive',
-    cidade: 'CANCÚN, MEX',
-    validade: 'De 10 ago 2021 até 30 set 2022',
-    desconto: 45,
-    numDiarias: 5,
-    numPessoas: 2,
-    numParcelas: 6,
-    precoAntigo: 6819,
-    precoAtual: 2819,
-  );
-  PacoteTuristico pacote2 = PacoteTuristico(
-    imagem: 'https://letsdive.com.br/wp-content/uploads/2019/04/PROCURANDO-MERGULHO-EM-MARAGOGI-CONSIDERE-MACEIO.png',
-    titulo: 'Pacote Maragogi 2023',
-    transporte: 'Hotel All inclusive',
-    cidade: 'MARAGOGI, BRA',
-    validade: 'De 10 jan 2022 até 31 dez 2023',
-    desconto: 45,
-    numDiarias: 7,
-    numPessoas: 3,
-    numParcelas: 12,
-    precoAntigo: 4819,
-    precoAtual: 819,
-  );
+  int selectedIndex = 0;
+  List pages = const [
+    DestaquesPage(),
+    GridPacotesPage(),
+    Center(child: Text('Page Temporaria', style: TextStyle(fontSize: 36))),
+    Center(child: Text('Page Temporaria', style: TextStyle(fontSize: 36))),
+  ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.grey[100],
       appBar: AppBar(
         centerTitle: false,
+        title: const Text('Pesquisar'),
         backgroundColor: const Color(0xFF10397B),
-        title: const Text(
-          'Pesquisar',
-          style: TextStyle(fontSize: 24),
-        ),
       ),
-      backgroundColor: Colors.grey[100],
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: ListView(
-          children: [
-            Container(
-              decoration: BoxDecoration(
-                color: Colors.purple,
-                borderRadius: BorderRadius.circular(16),
-              ),
-              padding: const EdgeInsets.all(16),
-              child: Row(
-                children: [
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        const Text(
-                          'Tops destinos mais buscados',
-                          style: TextStyle(
-                            fontSize: 24,
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        const Text(
-                          'Corre que tá rolando muita promoção',
-                          style: TextStyle(
-                            fontSize: 15,
-                            color: Colors.white,
-                          ),
-                        ),
-                        const SizedBox(height: 16),
-                        ElevatedButton(
-                          onPressed: onPressedButton,
-                          child: const Text(
-                            'EU QUERO!',
-                            style: TextStyle(
-                              fontSize: 15,
-                              color: Colors.black,
-                            ),
-                          ),
-                          style: ElevatedButton.styleFrom(
-                            primary: Color(0xFFF8FF04),
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
-                  SizedBox(width: 24),
-                  Placeholder(
-                    fallbackHeight: 150,
-                    fallbackWidth: 100,
-                    color: Colors.white,
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(height: 16),
-            CardPacoteTuristico(pacoteTuristico: pacote1),
-            CardPacoteTuristico(pacoteTuristico: pacote2),
-          ],
-        ),
-      ),
-    );
-  }
-
-  void onPressedButton() {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) {
-          return const PropagandaPage();
+      body: pages[selectedIndex],
+      bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
+        showUnselectedLabels: true,
+        unselectedItemColor: Colors.grey,
+        selectedItemColor: const Color(0xFFE81F7C),
+        currentIndex: selectedIndex,
+        onTap: (index) {
+          setState(() {
+            selectedIndex = index;
+          });
         },
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(CupertinoIcons.compass),
+            label: 'Destaques',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(CupertinoIcons.bag),
+            label: 'Pacotes',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(CupertinoIcons.person),
+            label: 'Perfil',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.more_horiz),
+            label: 'Mais',
+          ),
+        ],
       ),
     );
   }

@@ -1,6 +1,7 @@
 import 'package:aula_913/domain/pacote_turistico.dart';
 import 'package:flutter/material.dart';
 
+
 class PacoteDetalhes extends StatefulWidget {
   final PacoteTuristico pacoteTuristico;
 
@@ -32,39 +33,77 @@ class _PacoteDetalhesState extends State<PacoteDetalhes> {
                   style: const TextStyle(fontSize: 14),
                 ),
                 const SizedBox(height: 8),
-                Text(
-                  pacote.titulo,
-                  style: const TextStyle(fontSize: 20),
+                buildText(
+                  text: pacote.titulo,
+                  fontSize: 21,
+                  isBold: true,
                 ),
                 const SizedBox(height: 8),
-                Text(pacote.transporte),
+                buildText(text: pacote.transporte),
                 const SizedBox(height: 8),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
-                      '${pacote.numDiarias} diárias',
-                      style: const TextStyle(fontSize: 16),
+                    buildText(
+                      text: '${pacote.numDiarias} diárias',
+                      fontSize: 16,
                     ),
                     Container(
                       color: const Color(0xFFFD6C00),
-                      padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 4),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 6, vertical: 4),
                       child: Text(
                         '-${pacote.desconto}%',
                         style: const TextStyle(
                             fontSize: 16,
                             color: Colors.white,
-                            fontWeight: FontWeight.bold
-                        ),
+                            fontWeight: FontWeight.bold),
                       ),
+                    ),
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    buildText(
+                      text: 'Válido para o periodo de:',
+                    ),
+                    buildText(
+                      text: 'A partir de ${pacote.precoAntigo}',
+                    ),
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    buildText(
+                      text: pacote.validade,
+                    ),
+                    buildText(
+                      text: '${pacote.precoAtual}',
                     ),
                   ],
                 ),
               ],
             ),
           ),
-
         ],
+      ),
+    );
+  }
+
+  buildText({
+    required String text,
+    double fontSize = 16,
+    bool isBold = false,
+    Color color = Colors.black,
+  }) {
+    return Text(
+      text,
+      style: TextStyle(
+        fontSize: fontSize,
+        color: color,
+        fontWeight: isBold ? FontWeight.w600 : null,
       ),
     );
   }

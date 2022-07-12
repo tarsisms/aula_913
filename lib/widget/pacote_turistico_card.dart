@@ -1,5 +1,6 @@
 import 'package:aula_913/domain/pacote_turistico.dart';
 import 'package:aula_913/pages/pacote_detalhes.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class CardPacoteTuristico extends StatefulWidget {
@@ -17,6 +18,8 @@ class CardPacoteTuristico extends StatefulWidget {
 class _CardPacoteTuristicoState extends State<CardPacoteTuristico> {
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
+
     return InkWell(
       onTap: () {
         Navigator.push(
@@ -35,6 +38,7 @@ class _CardPacoteTuristicoState extends State<CardPacoteTuristico> {
           borderRadius: BorderRadius.circular(8),
         ),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             buildImage(),
             Padding(
@@ -42,35 +46,47 @@ class _CardPacoteTuristicoState extends State<CardPacoteTuristico> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    widget.pacoteTuristico.titulo,
-                    style: const TextStyle(
-                      fontSize: 21,
-                      fontWeight: FontWeight.bold,
+                  FittedBox(
+                    fit: BoxFit.scaleDown,
+                    child: Text(
+                      widget.pacoteTuristico.titulo,
+                      style: const TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
-                  SizedBox(height: 8),
+                  const SizedBox(height: 4),
                   Text(widget.pacoteTuristico.transporte),
-                  SizedBox(height: 8),
-                  Row(
+                  const SizedBox(height: 8),
+                  Wrap(
+                    crossAxisAlignment: WrapCrossAlignment.center,
                     children: [
                       const Icon(Icons.wb_sunny_outlined),
                       const SizedBox(width: 4),
                       Text('${widget.pacoteTuristico.numDiarias} Diárias'),
                       const SizedBox(width: 8),
-                      const Icon(Icons.person_outline),
-                      const SizedBox(width: 4),
-                      Text('${widget.pacoteTuristico.numPessoas} Pessoas'),
+                      Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          const Icon(Icons.person_outline),
+                          const SizedBox(width: 4),
+                          Text('${widget.pacoteTuristico.numPessoas} Pessoas'),
+                        ],
+                      ),
                     ],
                   ),
-                  SizedBox(height: 8),
+                  const SizedBox(height: 8),
                   Text('A partir de R\$ ${widget.pacoteTuristico.precoAntigo}'),
-                  Text(
-                    'R\$ ${widget.pacoteTuristico.precoAtual}',
-                    style: const TextStyle(
-                      color: Colors.orange,
-                      fontSize: 28,
-                      fontWeight: FontWeight.bold,
+                  FittedBox(
+                    fit: BoxFit.scaleDown,
+                    child: Text(
+                      'R\$ ${widget.pacoteTuristico.precoAtual}',
+                      style: const TextStyle(
+                        color: Colors.orange,
+                        fontSize: 28,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
                   const SizedBox(height: 8),
@@ -92,11 +108,18 @@ class _CardPacoteTuristicoState extends State<CardPacoteTuristico> {
   buildImage() {
     return Stack(
       children: [
-        ClipRRect(
-          borderRadius: const BorderRadius.vertical(
-            top: Radius.circular(8),
+        SizedBox(
+          height: 170,
+          width: double.infinity,
+          child: ClipRRect(
+            borderRadius: const BorderRadius.vertical(
+              top: Radius.circular(8),
+            ),
+            child: Image.network(
+              widget.pacoteTuristico.imagem,
+              fit: BoxFit.cover,
+            ),
           ),
-          child: Image.network(widget.pacoteTuristico.imagem),
         ),
         Container(
           child: const Text(
