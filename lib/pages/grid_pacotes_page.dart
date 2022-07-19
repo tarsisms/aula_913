@@ -12,7 +12,7 @@ class GridPacotesPage extends StatefulWidget {
 }
 
 class _GridPacotesPageState extends State<GridPacotesPage> {
-  List<PacoteTuristico> lista = BD.getPacotesTuristicos();
+  List<PacoteTuristico> lista = BD.lista;
 
   @override
   Widget build(BuildContext context) {

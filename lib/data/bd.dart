@@ -144,7 +144,10 @@ class BD {
     ),
   ];
 
-  static List<PacoteTuristico> getPacotesTuristicos(){
+  static Future<List<PacoteTuristico>> getPacotesTuristicos() async {
+    print("ANTES");
+    await Future.delayed(const Duration(seconds: 10));
+    print("DEPOIS");
     return lista;
   }
 

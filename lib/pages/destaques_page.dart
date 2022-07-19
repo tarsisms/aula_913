@@ -14,10 +14,11 @@ class DestaquesPage extends StatefulWidget {
 class _DestaquesPageState extends State<DestaquesPage> {
   // buildContainerPropaganda(context),
   // const SizedBox(height: 16),
-  List<PacoteTuristico> lista = BD.getPacotesTuristicos();
+  Future<List<PacoteTuristico>> lista = BD.getPacotesTuristicos();
 
   @override
   Widget build(BuildContext context) {
+
     return Padding(
       padding: const EdgeInsets.all(16.0),
       child: ListView(
@@ -31,14 +32,32 @@ class _DestaquesPageState extends State<DestaquesPage> {
   }
 
   buildListView() {
-    return ListView.builder(
-      shrinkWrap: true,
-      physics: const NeverScrollableScrollPhysics(),
-      itemCount: lista.length,
-      itemBuilder: (BuildContext context, int index) {
-        return CardPacoteTuristico(pacoteTuristico: lista[index]);
+    return FutureBuilder<List<PacoteTuristico>>(
+      future: lista,
+      builder: (context, snapshot) {
+
+        if(snapshot.hasData) {
+          // ?? -> Verificar ser o conteudo de snapshot.data é nulo
+          List<PacoteTuristico> lista = snapshot.data ?? [];
+
+          return ListView.builder(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            itemCount: lista.length,
+            itemBuilder: (BuildContext context, int index) {
+              return CardPacoteTuristico(pacoteTuristico: lista[index]);
+            },
+          );
+        }
+
+        return Center(child: const CircularProgressIndicator());
+
       },
     );
+
+
+
+
   }
 
   buildContainerPropaganda(BuildContext context) {
