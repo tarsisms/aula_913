@@ -26,7 +26,7 @@ Para facilitar o acesso aos códigos desenvolvidos nas aulas, teremos um novo `c
 Será apresentada uma lista semelhante a apresentada abaixo:
 
 ```shell
-823fcd5 (HEAD -> main) Aula 05 - Interfaces Gráficas - 25/03
+823fcd5 (HEAD -> main) Aula 06 - Interfaces Gráficas - 25/03
 a9614de Initial commit
 ```
 
