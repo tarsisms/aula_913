@@ -31,33 +31,54 @@ class _DetailPageState extends State<DetailPage> {
                 ),
                 const SizedBox(height: 8),
                 Text(
-                  'Pacote Cancún 2025',
+                  'Pacote Cancún - Segundo Semestre 2025',
                   style: GoogleFonts.montserrat(
-                    fontSize: 28,
+                    fontSize: 22,
                     fontWeight: FontWeight.w600,
                   ),
                 ),
                 const SizedBox(height: 8),
                 buildText('Aereo + Hotel All Inclusive'),
                 const SizedBox(height: 8),
-                buildText('5 ou 7 diárias'),
+                Row(
+                  children: [
+                    const Icon(Icons.wb_sunny_outlined, size: 20),
+                    const SizedBox(width: 4),
+                    buildText('5 ou 7 diárias'),
+                    const Spacer(),
+                    Container(
+                      color: const Color(0xFFFD6C00),
+                      child: const Padding(
+                        padding: EdgeInsets.symmetric(
+                            vertical: 4, horizontal: 8),
+                        child: Text(
+                          '-45%',
+                          style: TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white
+                          ),
+                        ),
+                      ),
+                    )
+                  ],
+                ),
                 const SizedBox(height: 8),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    buildText('Válido por um período de'),
+                    buildText('Válido por um período de:'),
                     buildText('A partir de R\$ 6816'),
                   ],
                 ),
-                const SizedBox(height: 8),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Expanded(
                       child: Text(
-                        'De 01 jan. 2025 a 31 dez. 2025',
+                        'De 01 jan. 2025\na 31 dez. 2025',
                         style: GoogleFonts.montserrat(
-                          fontSize: 22,
+                          fontSize: 18,
                           fontWeight: FontWeight.w600,
                         ),
                       ),
@@ -66,16 +87,18 @@ class _DetailPageState extends State<DetailPage> {
                     Text(
                       'R\$ 3.749',
                       style: GoogleFonts.montserrat(
-                          fontSize: 36,
-                          fontWeight: FontWeight.bold,
-                          color: const Color(0xFFFD6C00)),
+                        fontSize: 30,
+                        fontWeight: FontWeight.bold,
+                        color: const Color(0xFFFD6C00),
+                      ),
                     ),
                   ],
                 ),
                 const SizedBox(height: 16),
                 const Divider(),
-                const SizedBox(height: 16),
+                const SizedBox(height: 8),
                 Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Expanded(
@@ -83,8 +106,8 @@ class _DetailPageState extends State<DetailPage> {
                       child: Text(
                         'O que está incluso',
                         style: GoogleFonts.montserrat(
-                          fontSize: 22,
-                          fontWeight: FontWeight.bold,
+                          fontSize: 20,
+                          fontWeight: FontWeight.w600,
                         ),
                       ),
                     ),
@@ -92,8 +115,9 @@ class _DetailPageState extends State<DetailPage> {
                       flex: 1,
                       child: Text(
                         'Cancelamento Grátis!',
+                        textAlign: TextAlign.end,
                         style: GoogleFonts.montserrat(
-                          fontSize: 15,
+                          fontSize: 13,
                           fontWeight: FontWeight.bold,
                           color: Colors.green,
                         ),
@@ -102,30 +126,33 @@ class _DetailPageState extends State<DetailPage> {
                   ],
                 ),
                 const SizedBox(height: 24),
-                const Row(
+                Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     Column(
                       children: [
-                        Icon(Icons.check, size: 48),
-                        Text('Apartamento'),
+                        const Icon(Icons.check, size: 35),
+                        const SizedBox(height: 16),
+                        buildText('Apartamento'),
                       ],
                     ),
                     Column(
                       children: [
-                        Icon(Icons.room_service, size: 48),
-                        Text('All Inclusive'),
+                        const Icon(Icons.room_service, size: 35),
+                        const SizedBox(height: 16),
+                        buildText('All Inclusive'),
                       ],
                     ),
                     Column(
                       children: [
-                        Icon(Icons.flight, size: 48),
-                        Text('Passagem Aerea'),
+                        const Icon(Icons.flight, size: 35),
+                        const SizedBox(height: 16),
+                        buildText('Passagem Aérea'),
                       ],
                     ),
                   ],
                 ),
-                const SizedBox(height: 24),
+                const SizedBox(height: 16),
                 const Divider(),
               ],
             ),
@@ -139,7 +166,7 @@ class _DetailPageState extends State<DetailPage> {
     return Text(
       text,
       style: GoogleFonts.montserrat(
-        fontSize: 15,
+        fontSize: 14,
       ),
     );
   }

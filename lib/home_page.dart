@@ -1,3 +1,4 @@
+import 'package:aula_913/detail_page.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -82,56 +83,68 @@ class _HomePageState extends State<HomePage> {
   }
 
   buildCardPacote() {
-    return Card(
-        color: Colors.white,
-        margin: EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Image.network(
-                'https://www.viagenscinematograficas.com.br/wp-content/uploads/2019/03/Cancun-Melhores-Praias-Riviera-Maya-Capa.jpg'),
-            const Padding(
-              padding: EdgeInsets.all(16),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Pacote Cancún 2024',
-                    style: TextStyle(
-                      fontSize: 21,
-                      fontWeight: FontWeight.bold,
+    return InkWell(
+      child: Card(
+          color: Colors.white,
+          margin: EdgeInsets.all(16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Image.network(
+                  'https://www.viagenscinematograficas.com.br/wp-content/uploads/2019/03/Cancun-Melhores-Praias-Riviera-Maya-Capa.jpg'),
+              const Padding(
+                padding: EdgeInsets.all(16),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Pacote Cancún 2024',
+                      style: TextStyle(
+                        fontSize: 21,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
-                  ),
-                  Text('Aéreo + Hotel All inclusive'),
-                  Row(
-                    children: [
-                      Icon(Icons.wb_sunny_outlined, size: 20),
-                      SizedBox(width: 4),
-                      Text('5 Diárias'),
-                      SizedBox(width: 8),
-                      Icon(Icons.person, size: 20),
-                      SizedBox(width: 4),
-                      Text('1 Pessoa'),
-                    ],
-                  ),
-                  Text('A partir de R\$ 6816'),
-                  Text(
-                    'R\$ 3.749',
-                    style: TextStyle(
-                      fontSize: 30,
-                      fontWeight: FontWeight.bold,
-                      color: Color(0xFFFD6C00),
+                    Text('Aéreo + Hotel All inclusive'),
+                    Row(
+                      children: [
+                        Icon(Icons.wb_sunny_outlined, size: 20),
+                        SizedBox(width: 4),
+                        Text('5 Diárias'),
+                        SizedBox(width: 8),
+                        Icon(Icons.person, size: 20),
+                        SizedBox(width: 4),
+                        Text('1 Pessoa'),
+                      ],
                     ),
-                  ),
-                  Text(
-                    'Cancelamento Grátis',
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold, color: Colors.green),
-                  ),
-                ],
+                    Text('A partir de R\$ 6816'),
+                    Text(
+                      'R\$ 3.749',
+                      style: TextStyle(
+                        fontSize: 30,
+                        fontWeight: FontWeight.bold,
+                        color: Color(0xFFFD6C00),
+                      ),
+                    ),
+                    Text(
+                      'Cancelamento Grátis',
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold, color: Colors.green),
+                    ),
+                  ],
+                ),
               ),
-            ),
-          ],
-        ));
+            ],
+          )),
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) {
+              return DetailPage();
+            },
+          ),
+        );
+      },
+    );
   }
 }
