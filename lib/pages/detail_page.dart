@@ -1,29 +1,34 @@
+import 'package:aula_913/domain/pacote_turistico.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class DetailPage extends StatefulWidget {
-  const DetailPage({super.key});
+  final PacoteTuristico pacoteTuristico;
+
+  const DetailPage({super.key, required this.pacoteTuristico});
 
   @override
   State<DetailPage> createState() => _DetailPageState();
 }
 
 class _DetailPageState extends State<DetailPage> {
+  PacoteTuristico get pacote => widget.pacoteTuristico;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
         children: [
           Image.network(
-            'https://www.viagenscinematograficas.com.br/wp-content/uploads/2019/03/Cancun-Melhores-Praias-Riviera-Maya-Capa.jpg',
-          ),
+              // widget.pacoteTuristico.urlImage,
+              pacote.urlImage),
           Padding(
             padding: const EdgeInsets.all(16),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'CANCÚN, MEX',
+                  pacote.cidade,
                   style: GoogleFonts.montserrat(
                     fontSize: 16,
                     fontWeight: FontWeight.w500,
@@ -31,32 +36,34 @@ class _DetailPageState extends State<DetailPage> {
                 ),
                 const SizedBox(height: 8),
                 Text(
-                  'Pacote Cancún - Segundo Semestre 2025',
+                  pacote.titulo,
                   style: GoogleFonts.montserrat(
                     fontSize: 22,
                     fontWeight: FontWeight.w600,
                   ),
                 ),
                 const SizedBox(height: 8),
-                buildText('Aereo + Hotel All Inclusive'),
+                buildText(pacote.descricao),
                 const SizedBox(height: 8),
                 Row(
                   children: [
                     const Icon(Icons.wb_sunny_outlined, size: 20),
                     const SizedBox(width: 4),
-                    buildText('5 ou 7 diárias'),
+                    buildText('${pacote.numDiarias} diárias'),
                     const Spacer(),
                     Container(
                       color: const Color(0xFFFD6C00),
-                      child: const Padding(
+                      child: Padding(
                         padding: EdgeInsets.symmetric(
-                            vertical: 4, horizontal: 8),
+                          vertical: 4,
+                          horizontal: 8,
+                        ),
                         child: Text(
-                          '-45%',
+                          '-${pacote.desconto}%',
                           style: TextStyle(
                             fontSize: 12,
                             fontWeight: FontWeight.bold,
-                            color: Colors.white
+                            color: Colors.white,
                           ),
                         ),
                       ),
@@ -68,7 +75,7 @@ class _DetailPageState extends State<DetailPage> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     buildText('Válido por um período de:'),
-                    buildText('A partir de R\$ 6816'),
+                    buildText('A partir de R\$ ${pacote.valorAntigo}'),
                   ],
                 ),
                 Row(
@@ -85,7 +92,7 @@ class _DetailPageState extends State<DetailPage> {
                     ),
                     const SizedBox(width: 8),
                     Text(
-                      'R\$ 3.749',
+                      'R\$ ${pacote.valorAtual}',
                       style: GoogleFonts.montserrat(
                         fontSize: 30,
                         fontWeight: FontWeight.bold,
