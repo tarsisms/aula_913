@@ -49,7 +49,7 @@ class _DetailPageState extends State<DetailPage> {
                   children: [
                     const Icon(Icons.wb_sunny_outlined, size: 20),
                     const SizedBox(width: 4),
-                    buildText('${pacote.numDiarias} diárias'),
+                    buildText('${pacote.numDiarias} diária(s)'),
                     const Spacer(),
                     Container(
                       color: const Color(0xFFFD6C00),
