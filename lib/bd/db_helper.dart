@@ -36,5 +36,11 @@ class DBHelper {
     sql =
         "INSERT INTO PACOTE (id, titulo, titulo_ano, url_image, cidade, descricao, validade, desconto, num_diarias, num_pessoas, valor_antigo, valor_atual) VALUES (4, 'Pacote Maragogi', 'Pacote Maragogi 2025', 'https://vidasemparedes.com.br/wp-content/uploads/2024/02/praiasmaragogi-vidasemparedes-14.jpg', 'MARAGOGI, BRA', 'Aéreo + Hotel All inclusive', '01 Fev 2025 a 31 Dez 2025', -10, 10, 2, 4500, 3610);";
     await db.execute(sql);
+
+    sql = "CREATE TABLE USER (username varchar(100) PRIMARY KEY, password varchar(100))";
+    await db.execute(sql);
+
+    sql = "INSERT INTO USER (username, password) VALUES ('joao@gmail.com', '123456')";
+    await db.execute(sql);
   }
 }

@@ -1,4 +1,6 @@
+import 'package:aula_913/bd/user_dao.dart';
 import 'package:aula_913/pages/home_page.dart';
+import 'package:aula_913/pages/register_user.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -20,103 +22,111 @@ class _LoginPageState extends State<LoginPage> {
     return SafeArea(
       child: Scaffold(
         body: Padding(
-            padding: const EdgeInsets.all(16),
-            child: Form(
-              key: formKey,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  const SizedBox(height: 16),
-                  Text(
-                    'Entrar no App 2',
-                    textAlign: TextAlign.center,
-                    style: GoogleFonts.montserrat(
-                      color: const Color(0xFF10397B),
-                      fontWeight: FontWeight.w600,
-                      fontSize: 24,
+          padding: const EdgeInsets.all(16),
+          child: Form(
+            key: formKey,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                const SizedBox(height: 16),
+                Text(
+                  'Entrar no App 2',
+                  textAlign: TextAlign.center,
+                  style: GoogleFonts.montserrat(
+                    color: const Color(0xFF10397B),
+                    fontWeight: FontWeight.w600,
+                    fontSize: 24,
+                  ),
+                ),
+                const SizedBox(height: 16),
+                Image.network(
+                  'https://img.freepik.com/vetores-gratis/integracao-de-ilustracao-do-conceito-abstrato-de-migrantes-migrantes-aceitos-pela-sociedade_335657-619.jpg?t=st=1721609838~exp=1721613438~hmac=61ff298754aa1b950f370cc08a4ea8940e6827830844f42020f9e9ce60024ad4&w=826',
+                  height: 180,
+                ),
+                const SizedBox(height: 32),
+                TextFormField(
+                  // autovalidateMode: AutovalidateMode.onUserInteraction,
+                  controller: emailController,
+                  validator: (value) {
+                    if (value!.contains("@")) {
+                      return null;
+                    } else {
+                      return "Você precisa digitar um e-mail válido!";
+                    }
+                  },
+                  decoration: buildInputDecoration('E-mail'),
+                  cursorColor: const Color(0xFF10397B),
+                ),
+                const SizedBox(height: 16),
+                TextFormField(
+                  obscureText: true,
+                  controller: senhaController,
+                  // autovalidateMode: AutovalidateMode.onUserInteraction,
+                  validator: (value) {
+                    if (value!.length >= 6) {
+                      return null;
+                    } else {
+                      return "Você precisa digitar uma senha válida!";
+                    }
+                  },
+                  decoration: buildInputDecoration('Senha'),
+                  cursorColor: const Color(0xFF10397B),
+                ),
+                const SizedBox(height: 32),
+                // Spacer(),
+                ElevatedButton(
+                  onPressed: onPressed,
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color(0xFFE81F7C),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(4),
                     ),
                   ),
-                  const SizedBox(height: 16),
-                  Image.network(
-                    'https://img.freepik.com/vetores-gratis/integracao-de-ilustracao-do-conceito-abstrato-de-migrantes-migrantes-aceitos-pela-sociedade_335657-619.jpg?t=st=1721609838~exp=1721613438~hmac=61ff298754aa1b950f370cc08a4ea8940e6827830844f42020f9e9ce60024ad4&w=826',
-                    height: 180,
-                  ),
-                  const SizedBox(height: 32),
-                  TextFormField(
-                    // autovalidateMode: AutovalidateMode.onUserInteraction,
-                    controller: emailController,
-                    validator: (value) {
-                      if (value!.contains("@")) {
-                        return null;
-                      } else {
-                        return "Você precisa digitar um e-mail válido!";
-                      }
-                    },
-                    decoration: buildInputDecoration('E-mail'),
-                    cursorColor: const Color(0xFF10397B),
-                  ),
-                  const SizedBox(height: 16),
-                  TextFormField(
-                    obscureText: true,
-                    controller: senhaController,
-                    // autovalidateMode: AutovalidateMode.onUserInteraction,
-                    validator: (value) {
-                      if (value!.length >= 6) {
-                        return null;
-                      } else {
-                        return "Você precisa digitar uma senha válida!";
-                      }
-                    },
-                    decoration: buildInputDecoration('Senha'),
-                    cursorColor: const Color(0xFF10397B),
-                  ),
-                  const SizedBox(height: 32),
-                  // Spacer(),
-                  ElevatedButton(
-                    onPressed: () {
-                      // Validar o Form
-                      if (formKey.currentState!.validate()) {
-                        // Verificar e-mail e senha
-                        String email = emailController.text;
-                        String senha = senhaController.text;
-
-                        if (email == 'joao@gmail.com' && senha == '123456') {
-                          // Navegar p/ HomePage
-                          Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) {
-                                return HomePage();
-                              },
-                            ),
-                          );
-                        } else {
-                          print('Usuário e/ou Senha incorreto(s)!');
-                        }
-                      }
-
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFFE81F7C),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(4),
-                      ),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(8),
-                      child: Text(
-                        'Entrar com a Conta Hurb',
-                        style: GoogleFonts.montserrat(
-                          fontSize: 20,
-                          color: Colors.white,
-                          fontWeight: FontWeight.w600,
-                        ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8),
+                    child: Text(
+                      'Entrar com a Conta Hurb',
+                      style: GoogleFonts.montserrat(
+                        fontSize: 20,
+                        color: Colors.white,
+                        fontWeight: FontWeight.w600,
                       ),
                     ),
                   ),
-                ],
-              ),
-            )),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return const RegisterUser();
+                        },
+                      ),
+                    );
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.white,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(4),
+                    ),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8),
+                    child: Text(
+                      'Criar uma Conta',
+                      style: GoogleFonts.montserrat(
+                        fontSize: 20,
+                        color: const Color(0xFFE81F7C),
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
       ),
     );
   }
@@ -137,5 +147,30 @@ class _LoginPageState extends State<LoginPage> {
         ),
       ),
     );
+  }
+
+  Future<void> onPressed() async {
+    // Validar o Form
+    if (formKey.currentState!.validate()) {
+      // Verificar e-mail e senha
+      String email = emailController.text;
+      String senha = senhaController.text;
+
+      bool auth = await UserDao().autenticar(email, senha);
+
+      if (auth) {
+        // Navegar p/ HomePage
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) {
+              return HomePage();
+            },
+          ),
+        );
+      } else {
+        print('Usuário e/ou Senha incorreto(s)!');
+      }
+    }
   }
 }
