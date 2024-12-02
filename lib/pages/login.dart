@@ -1,3 +1,4 @@
+import 'package:aula_913/bd/shared_prefs.dart';
 import 'package:aula_913/bd/user_dao.dart';
 import 'package:aula_913/pages/home_page.dart';
 import 'package:aula_913/pages/register_user.dart';
@@ -30,7 +31,7 @@ class _LoginPageState extends State<LoginPage> {
               children: [
                 const SizedBox(height: 16),
                 Text(
-                  'Entrar no App 2',
+                  'Entrar no Hurb',
                   textAlign: TextAlign.center,
                   style: GoogleFonts.montserrat(
                     color: const Color(0xFF10397B),
@@ -159,6 +160,8 @@ class _LoginPageState extends State<LoginPage> {
       bool auth = await UserDao().autenticar(email, senha);
 
       if (auth) {
+        SharedPrefs().setUser(true);
+
         // Navegar p/ HomePage
         Navigator.pushReplacement(
           context,

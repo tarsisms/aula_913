@@ -1,5 +1,7 @@
 import 'package:aula_913/bd/pacote_dao.dart';
+import 'package:aula_913/bd/shared_prefs.dart';
 import 'package:aula_913/domain/pacote_turistico.dart';
+import 'package:aula_913/pages/login.dart';
 import 'package:aula_913/widgets/card_pacote_turistico.dart';
 import 'package:flutter/material.dart';
 
@@ -28,7 +30,26 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        centerTitle: false,
         backgroundColor: const Color(0xFF10397B),
+        actions: [
+          IconButton(
+            onPressed: () {
+              SharedPrefs().setUser(false);
+              Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return LoginPage();
+                    },
+                  ));
+            },
+            icon: const Icon(
+              Icons.logout,
+              color: Colors.white,
+            ),
+          )
+        ],
         title: const Text(
           'Pesquisar',
           style: TextStyle(
