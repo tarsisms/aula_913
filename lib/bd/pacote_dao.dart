@@ -3,6 +3,11 @@ import 'package:aula_913/domain/pacote_turistico.dart';
 import 'package:sqflite/sqflite.dart';
 
 class PacoteDao {
+  salvarPacote(PacoteTuristico pacote) async {
+    Database database = await DBHelper().initDB();
+    database.insert('PACOTE', pacote.toJson());
+  }
+
   listarPacotes() async {
     Database database = await DBHelper().initDB();
 

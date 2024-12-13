@@ -13,15 +13,18 @@ class PacoteTuristico {
   late double valorAntigo;
 
   PacoteTuristico({
-    required this.cidade,
-    required this.desconto,
+    required this.id,
     required this.urlImage,
+    required this.cidade,
     required this.titulo,
+    required this.tituloAno,
     required this.descricao,
+    required this.validade,
+    required this.desconto,
     required this.numDiarias,
     required this.numPessoas,
-    required this.valorAntigo,
     required this.valorAtual,
+    required this.valorAntigo,
   });
 
   PacoteTuristico.fromJson(Map<String, dynamic> json) {
@@ -37,5 +40,23 @@ class PacoteTuristico {
     numPessoas = json['num_pessoas'];
     valorAntigo = json['valor_antigo'];
     valorAtual = json['valor_atual'];
+  }
+
+  Map<String, dynamic> toJson() {
+    Map<String, dynamic> json = {};
+
+    json['titulo'] = titulo;
+    json['titulo_ano'] = tituloAno;
+    json['url_image'] = urlImage;
+    json['cidade'] = cidade;
+    json['descricao'] = descricao;
+    json['validade'] = validade;
+    json['desconto'] = desconto;
+    json['num_diarias'] = numDiarias;
+    json['num_pessoas'] = numPessoas;
+    json['valor_antigo'] = valorAntigo;
+    json['valor_atual'] = valorAtual;
+
+    return json;
   }
 }

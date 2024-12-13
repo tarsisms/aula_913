@@ -18,7 +18,7 @@ class DBHelper {
 
   FutureOr<void> onCreate(Database db, int version) async {
     String sql =
-        'CREATE TABLE PACOTE (id INTEGER PRIMARY KEY, titulo varchar(100), titulo_ano varchar(100), url_image varchar(100), cidade varchar(100), descricao varchar(100), validade varchar(100), desconto INTEGER, num_diarias INTEGER, num_pessoas INTEGER, valor_antigo double, valor_atual double);';
+        'CREATE TABLE PACOTE (id INTEGER PRIMARY KEY AUTOINCREMENT, titulo varchar(100), titulo_ano varchar(100), url_image varchar(100), cidade varchar(100), descricao varchar(100), validade varchar(100), desconto INTEGER, num_diarias INTEGER, num_pessoas INTEGER, valor_antigo double, valor_atual double);';
     await db.execute(sql);
 
     sql =
