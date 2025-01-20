@@ -22,9 +22,9 @@ class MapPageState extends State<MapPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: GoogleMap(
+    return SafeArea(
+      child: Scaffold(
+        body: GoogleMap(
           zoomControlsEnabled: true,
           mapType: MapType.normal,
           initialCameraPosition: CameraPosition(
