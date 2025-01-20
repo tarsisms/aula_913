@@ -40,6 +40,8 @@ dependencies:
   shared_preferences:
   sqflite:
   path:
+  google_maps_flutter:
+  geocoding:
 
 dev_dependencies:
   flutter_test:
