@@ -14,7 +14,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  List<PacoteTuristico> pacotes = [];
+  late Future<List<PacoteTuristico>> futurePacotes;
 
   @override
   void initState() {
@@ -23,8 +23,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   loadData() async {
-    pacotes = await PacoteDao().listarPacotes();
-    setState(() {});
+    futurePacotes = PacoteDao().listarPacotes();
   }
 
   @override
@@ -32,23 +31,39 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       floatingActionButton: buildFloatingActionButton(),
       appBar: buildAppBar(),
-      body: ListView(
-        children: [
-          buildContainerPropaganda(),
-
-          // For (int i = 0; i < Database.pacotes.length; i++) {}
-          ListView.builder(
-            physics: const NeverScrollableScrollPhysics(),
-            shrinkWrap: true,
-            itemCount: pacotes.length,
-            itemBuilder: (context, i) {
-              return CardPacoteTuristico(
-                pacoteTuristico: pacotes[i],
-              );
-            },
-          ),
-        ],
+      body: FutureBuilder(
+        future: futurePacotes,
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            List<PacoteTuristico> lista =  snapshot.data!;
+            return buildListView(lista);
+          } else {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+        },
       ),
+    );
+  }
+
+  buildListView(List<PacoteTuristico> lista) {
+    return ListView(
+      children: [
+        buildContainerPropaganda(),
+
+        // For (int i = 0; i < Database.pacotes.length; i++) {}
+        ListView.builder(
+          physics: const NeverScrollableScrollPhysics(),
+          shrinkWrap: true,
+          itemCount: lista.length,
+          itemBuilder: (context, i) {
+            return CardPacoteTuristico(
+              pacoteTuristico: lista[i],
+            );
+          },
+        ),
+      ],
     );
   }
 
