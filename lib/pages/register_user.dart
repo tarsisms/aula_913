@@ -150,7 +150,7 @@ class _LoginPageState extends State<RegisterUser> {
       Address address = await AddressApi().findAddressByCep(cep);
       enderecoController.text = address.address;
     } catch (e) {
-      showSnackBar('Ocorreu um erro inesperado! ');
+      showSnackBar('Ocorreu um erro inesperado!');
     }
   }
 
