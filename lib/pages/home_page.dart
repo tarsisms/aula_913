@@ -34,8 +34,13 @@ class _HomePageState extends State<HomePage> {
       body: FutureBuilder(
         future: futurePacotes,
         builder: (context, snapshot) {
+          if (snapshot.hasError) {
+            return const Center(
+              child: Text('Ocorreu um error'),
+            );
+          }
           if (snapshot.hasData) {
-            List<PacoteTuristico> lista =  snapshot.data!;
+            List<PacoteTuristico> lista = snapshot.data!;
             return buildListView(lista);
           } else {
             return const Center(

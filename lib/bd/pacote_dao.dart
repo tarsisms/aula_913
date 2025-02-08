@@ -20,8 +20,6 @@ class PacoteDao {
       lista.add(pacote);
     }
 
-    await Future.delayed(Duration(seconds: 3));
-
     return lista;
   }
 }
