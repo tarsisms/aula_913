@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class HomePage extends StatefulWidget {
@@ -9,6 +10,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  int selectedIndex = 0;
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -16,6 +19,42 @@ class _HomePageState extends State<HomePage> {
         backgroundColor: Colors.white,
         appBar: AppBar(backgroundColor: Colors.white),
         body: buildBody(),
+        bottomNavigationBar: BottomNavigationBar(
+          currentIndex: selectedIndex,
+          onTap: (index) {
+            setState(() {
+              selectedIndex = index;
+              print(selectedIndex);
+            });
+          },
+          backgroundColor: Colors.white,
+          unselectedItemColor: Color(0xFF6C6C6C),
+          selectedItemColor: Color(0xFFE41D56),
+          showUnselectedLabels: true,
+          type: BottomNavigationBarType.fixed,
+          items: [
+            BottomNavigationBarItem(
+              icon: Icon(Icons.search),
+              label: 'Explorer',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.favorite_border),
+              label: 'Wishlist',
+            ),
+            BottomNavigationBarItem(
+              icon: FaIcon(FontAwesomeIcons.airbnb),
+              label: 'Trips',
+            ),
+            BottomNavigationBarItem(
+              icon: FaIcon(FontAwesomeIcons.message),
+              label: 'Inbox',
+            ),
+            BottomNavigationBarItem(
+              icon: FaIcon(FontAwesomeIcons.circleUser),
+              label: 'Profile',
+            ),
+          ],
+        ),
       ),
     );
   }
