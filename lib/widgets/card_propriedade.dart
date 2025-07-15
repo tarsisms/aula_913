@@ -1,21 +1,12 @@
+import 'package:aula_913/domain/propriedade.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class CardPropriedade extends StatefulWidget {
-  String urlImage;
-  String local;
-  double avaliacao;
-  String tipoHost;
-  String datas;
-  String valor;
+  Propriedade propriedade;
 
   CardPropriedade({
-    required this.urlImage,
-    required this.local,
-    required this.avaliacao,
-    required this.tipoHost,
-    required this.datas,
-    required this.valor,
+    required this.propriedade,
     super.key,
   });
 
@@ -24,7 +15,8 @@ class CardPropriedade extends StatefulWidget {
 }
 
 class _CardPropriedadeState extends State<CardPropriedade> {
-  String get urlImage => widget.urlImage;
+  // String get urlImage => widget.urlImage;
+  Propriedade get propriedade => widget.propriedade;
 
   // String getUrlImage {
   //   return widget.urlImage;
@@ -39,13 +31,13 @@ class _CardPropriedadeState extends State<CardPropriedade> {
         children: [
           ClipRRect(
             borderRadius: BorderRadius.circular(16),
-            child: Image.network(urlImage),
+            child: Image.network(propriedade.urlImage),
           ),
           SizedBox(height: 16),
           Row(
             children: [
               buildText(
-                text: widget.local,
+                text: propriedade.local,
                 fontSize: 17.0,
                 fontWeight: FontWeight.w600,
               ),
@@ -58,10 +50,10 @@ class _CardPropriedadeState extends State<CardPropriedade> {
               ),
             ],
           ),
-          buildText(text: widget.tipoHost),
-          buildText(text: widget.datas),
+          buildText(text: widget.propriedade.tipoHost),
+          buildText(text: widget.propriedade.datas),
           buildText(
-            text: '\$${widget.valor} total',
+            text: '\$${widget.propriedade.valor} total',
             fontWeight: FontWeight.w600,
           ),
         ],
