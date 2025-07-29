@@ -1,4 +1,4 @@
-import 'package:aula_913/db/database.dart';
+import 'package:aula_913/db/propriedades_dao.dart';
 import 'package:aula_913/widgets/card_propriedade.dart';
 import 'package:flutter/material.dart';
 
@@ -10,6 +10,19 @@ class ExplorePage extends StatefulWidget {
 }
 
 class _ExplorePageState extends State<ExplorePage> {
+  List listaPropriedades = [];
+
+  @override
+  void initState() {
+    super.initState();
+    loadData();
+  }
+
+  loadData() async {
+    listaPropriedades = await PropriedadesDao().listarPropriedades();
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -22,10 +35,10 @@ class _ExplorePageState extends State<ExplorePage> {
         //     propriedade: propriedades[i],
         //   )
         // }
-        itemCount: Database.propriedades.length,
+        itemCount: listaPropriedades.length,
         itemBuilder: (context, i) {
           return CardPropriedade(
-            propriedade: Database.propriedades[i],
+            propriedade: listaPropriedades[i],
           );
         },
 
