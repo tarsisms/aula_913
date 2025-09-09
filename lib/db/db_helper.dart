@@ -48,5 +48,11 @@ class DBHelper {
     sql =
         "INSERT INTO Propriedade (valor, avaliacao, datas, local, tipoDeHost, urlImage) VALUES (3200.000, 4.98, '28 Dec - 05 Jan', 'Florianópolis, Brazil', 'Superhost', 'https://cf.bstatic.com/xdata/images/hotel/max1024x768/173625874.jpg?k=5d9a7d0bcdb33c8c6959ac1d03cd869a7a34cbc1e16485486e518fb846fb664a&o=&hp=1');";
     await db.execute(sql);
+
+    sql = "CREATE TABLE USER (username varchar(100) PRIMARY KEY, password varchar(100))";
+    await db.execute(sql);
+
+    sql = "INSERT INTO USER (username, password) VALUES ('joao@gmail.com', '123456')";
+    await db.execute(sql);
   }
 }

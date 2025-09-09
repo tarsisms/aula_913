@@ -1,17 +1,15 @@
 import 'package:aula_913/db/user_dao.dart';
-import 'package:aula_913/pages/resgister_page.dart';
+import 'package:aula_913/domain/user.dart';
 import 'package:flutter/material.dart';
 
-import 'home_page.dart';
-
-class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+class RegisterPage extends StatefulWidget {
+  const RegisterPage({super.key});
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<RegisterPage> createState() => _RegisterPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _RegisterPageState extends State<RegisterPage> {
   TextEditingController userController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
@@ -26,7 +24,7 @@ class _LoginPageState extends State<LoginPage> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Text(
-                'Entre ou cadastre-se no Airbnb',
+                'Cadastre-se no Airbnb',
                 style: TextStyle(fontSize: 21, fontWeight: FontWeight.bold),
               ),
               SizedBox(height: 24),
@@ -57,26 +55,9 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 onPressed: onPressed,
                 child: Text(
-                  'Entrar',
+                  'Cadastrar',
                   style: TextStyle(
                     color: Colors.white,
-                    fontWeight: FontWeight.w600,
-                    fontSize: 16,
-                  ),
-                ),
-              ),
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.white,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8), // <-- Radius
-                  ),
-                ),
-                onPressed: onPressedRegisterPage,
-                child: Text(
-                  'Cadastrar Usuário',
-                  style: TextStyle(
-                    color: Color(0xFFE41D56),
                     fontWeight: FontWeight.w600,
                     fontSize: 16,
                   ),
@@ -87,24 +68,6 @@ class _LoginPageState extends State<LoginPage> {
         ),
       ),
     );
-  }
-
-  Future<void> onPressed() async {
-    String user = userController.text;
-    String password = passwordController.text;
-    bool auth = await UserDao().login(user, password);
-    if (auth) {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-          builder: (context) {
-            return HomePage();
-          },
-        ),
-      );
-    } else {
-      print('Usuario e/ou senha incorretos!');
-    }
   }
 
   OutlineInputBorder buildPasswordOutlineInputBorder() {
@@ -125,14 +88,12 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  void onPressedRegisterPage() {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) {
-          return RegisterPage();
-        },
-      ),
-    );
+  Future<void> onPressed() async {
+    String username = userController.text;
+    String password = passwordController.text;
+
+    User user = User(username, password);
+    await UserDao().save(user);
+    Navigator.pop(context);
   }
 }
