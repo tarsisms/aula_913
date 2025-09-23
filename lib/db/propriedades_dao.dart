@@ -10,7 +10,7 @@ class PropriedadesDao {
 
     List<Propriedade> listaPropriedades = [];
 
-    await Future.delayed(Duration(seconds: 3));
+    await Future.delayed(Duration(seconds: 5));
 
     // ForEach
     for (var json in result) {

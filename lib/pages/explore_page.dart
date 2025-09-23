@@ -1,4 +1,5 @@
 import 'package:aula_913/db/propriedades_dao.dart';
+import 'package:aula_913/domain/propriedade.dart';
 import 'package:aula_913/widgets/card_propriedade.dart';
 import 'package:flutter/material.dart';
 
@@ -10,7 +11,8 @@ class ExplorePage extends StatefulWidget {
 }
 
 class _ExplorePageState extends State<ExplorePage> {
-  List listaPropriedades = [];
+  // List listaPropriedades = [];
+  late Future<List<Propriedade>> futurelistaPropriedades;
 
   @override
   void initState() {
@@ -19,8 +21,8 @@ class _ExplorePageState extends State<ExplorePage> {
   }
 
   loadData() async {
-    listaPropriedades = await PropriedadesDao().listarPropriedades();
-    setState(() {});
+    futurelistaPropriedades = PropriedadesDao().listarPropriedades();
+    // setState(() {});
   }
 
   @override
@@ -28,22 +30,36 @@ class _ExplorePageState extends State<ExplorePage> {
     return Padding(
       padding: EdgeInsets.all(20),
       // FOR
-      child: ListView.builder(
-        // children: [
-        // for(int i = 0; i < propriedades.length; i++) {
-        //   CardPropriedade(
-        //     propriedade: propriedades[i],
-        //   )
-        // }
-        itemCount: listaPropriedades.length,
-        itemBuilder: (context, i) {
-          return CardPropriedade(
-            propriedade: listaPropriedades[i],
-          );
-        },
+      child: FutureBuilder<List<Propriedade>>(
+        future: futurelistaPropriedades,
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            List<Propriedade> lista = snapshot.requireData;
+            return buildListView(lista);
+          }
 
-        // ],
+          return Center(child: CircularProgressIndicator());
+        },
       ),
+    );
+  }
+
+  buildListView(List<Propriedade> listaPropriedades) {
+    return ListView.builder(
+      // children: [
+      // for(int i = 0; i < propriedades.length; i++) {
+      //   CardPropriedade(
+      //     propriedade: propriedades[i],
+      //   )
+      // }
+      itemCount: listaPropriedades.length,
+      itemBuilder: (context, i) {
+        return CardPropriedade(
+          propriedade: listaPropriedades[i],
+        );
+      },
+
+      // ],
     );
   }
 }
