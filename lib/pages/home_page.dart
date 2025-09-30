@@ -1,4 +1,6 @@
+import 'package:aula_913/db/shared_prefs.dart';
 import 'package:aula_913/pages/explore_page.dart';
+import 'package:aula_913/pages/login_page.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -25,7 +27,25 @@ class _HomePageState extends State<HomePage> {
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.white,
-        appBar: AppBar(backgroundColor: Colors.white),
+        appBar: AppBar(
+          backgroundColor: Colors.white,
+          actions: [
+            IconButton(
+              onPressed: () {
+                SharedPrefs().setUserStatus(false);
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return LoginPage();
+                    },
+                  ),
+                );
+              },
+              icon: Icon(Icons.logout),
+            ),
+          ],
+        ),
         body: pages[selectedIndex],
         bottomNavigationBar: buildBottomNavigationBar(),
       ),
