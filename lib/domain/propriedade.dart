@@ -16,7 +16,7 @@ class Propriedade {
   });
 
   Propriedade.fromJson(Map<String, dynamic> json) {
-    valor = json['valor'];
+    valor = json['valor'].toDouble();
     avaliacao = json['avaliacao'];
     datas = json['datas'];
     local = json['local'];

@@ -1,4 +1,4 @@
-import 'package:aula_913/db/propriedades_dao.dart';
+import 'package:aula_913/api/propriedades_api.dart';
 import 'package:aula_913/domain/propriedade.dart';
 import 'package:aula_913/widgets/card_propriedade.dart';
 import 'package:flutter/material.dart';
@@ -21,7 +21,8 @@ class _ExplorePageState extends State<ExplorePage> {
   }
 
   loadData() async {
-    futurelistaPropriedades = PropriedadesDao().listarPropriedades();
+    futurelistaPropriedades = PropriedadesApi().findAll();
+    // futurelistaPropriedades = PropriedadesDao().listarPropriedades();
     // setState(() {});
   }
 

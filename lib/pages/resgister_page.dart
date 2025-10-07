@@ -1,4 +1,6 @@
+import 'package:aula_913/api/address_api.dart';
 import 'package:aula_913/db/user_dao.dart';
+import 'package:aula_913/domain/Address.dart';
 import 'package:aula_913/domain/user.dart';
 import 'package:flutter/material.dart';
 
@@ -11,6 +13,8 @@ class RegisterPage extends StatefulWidget {
 
 class _RegisterPageState extends State<RegisterPage> {
   TextEditingController userController = TextEditingController();
+  TextEditingController cepController = TextEditingController();
+  TextEditingController addressController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
   @override
@@ -43,6 +47,23 @@ class _RegisterPageState extends State<RegisterPage> {
                   hintText: 'Senha',
                   focusedBorder: buildPasswordOutlineInputBorder(),
                   border: buildPasswordOutlineInputBorder(),
+                ),
+              ),
+              TextField(
+                controller: cepController,
+                decoration: InputDecoration(
+                  suffixIcon: IconButton(onPressed: onPressedFindByCep, icon: Icon(Icons.search)),
+                  hintText: 'Cep',
+                  focusedBorder: buildUserOutlineInputBorder(),
+                  border: buildUserOutlineInputBorder(),
+                ),
+              ),
+              TextField(
+                controller: addressController,
+                decoration: InputDecoration(
+                  hintText: 'Endereco',
+                  focusedBorder: buildUserOutlineInputBorder(),
+                  border: buildUserOutlineInputBorder(),
                 ),
               ),
               SizedBox(height: 24),
@@ -95,5 +116,11 @@ class _RegisterPageState extends State<RegisterPage> {
     User user = User(username, password);
     await UserDao().save(user);
     Navigator.pop(context);
+  }
+
+  Future<void> onPressedFindByCep() async {
+    String cep = cepController.text;
+    Address address = await AddressApi().findByCep(cep);
+    addressController.text = address.completeAddress;
   }
 }
