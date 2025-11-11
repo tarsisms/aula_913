@@ -40,7 +40,8 @@ dependencies:
   path:
   shared_preferences:
   dio:
-
+  google_maps_flutter:
+  geocoding:
 
 
 dev_dependencies:
