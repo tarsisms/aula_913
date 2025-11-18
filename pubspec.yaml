@@ -42,7 +42,7 @@ dependencies:
   dio:
   google_maps_flutter:
   geocoding:
-
+  provider:
 
 dev_dependencies:
   flutter_test:

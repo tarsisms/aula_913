@@ -1,7 +1,10 @@
+import 'package:aula_913/api/user_api.dart';
 import 'package:aula_913/db/shared_prefs.dart';
-import 'package:aula_913/db/user_dao.dart';
+import 'package:aula_913/domain/user.dart';
 import 'package:aula_913/pages/resgister_page.dart';
+import 'package:aula_913/providers/profile_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import 'home_page.dart';
 
@@ -91,11 +94,17 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Future<void> onPressed() async {
-    String user = userController.text;
+    String username = userController.text;
     String password = passwordController.text;
-    bool auth = await UserDao().login(user, password);
-    if (auth) {
-      SharedPrefs().setUserStatus(true);
+
+    User? user = await UserApi().login(username, password);
+
+    if (user != null) {
+      // SharedPrefs().setUserStatus(true);
+      SharedPrefs().setUserId(user.id);
+      ProfileProvider provider = context.read<ProfileProvider>();
+      provider.setUser(user);
+
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(

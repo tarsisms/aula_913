@@ -1,8 +1,13 @@
+import 'package:aula_913/api/user_api.dart';
 import 'package:aula_913/db/shared_prefs.dart';
+import 'package:aula_913/domain/user.dart';
 import 'package:aula_913/pages/explore_page.dart';
 import 'package:aula_913/pages/login_page.dart';
+import 'package:aula_913/pages/profile_page.dart';
+import 'package:aula_913/providers/profile_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -19,7 +24,7 @@ class _HomePageState extends State<HomePage> {
     Center(child: Text('Pagina 1', style: TextStyle(fontSize: 32))),
     Center(child: Text('Pagina 2', style: TextStyle(fontSize: 32))),
     Center(child: Text('Pagina 3', style: TextStyle(fontSize: 32))),
-    Center(child: Text('Pagina 4', style: TextStyle(fontSize: 32))),
+    ProfilePage(),
   ];
 
   @override
@@ -30,6 +35,27 @@ class _HomePageState extends State<HomePage> {
         appBar: AppBar(
           backgroundColor: Colors.white,
           actions: [
+            IconButton(
+              onPressed: () async {
+                // context.read<ProfileProvider>() -> Acessa o ProfileProvider, mas não fica monitorando as alterações que acontecem
+                // Alterar entre usuários apenas para demonstrar o funcionamento do Provider
+                ProfileProvider provider = context.read<ProfileProvider>();
+
+                // if - Opção 1
+                int id = provider.user.id == 1 ? 2 : 1;
+
+                // if - Opção 2 - Equivalente a opção 1
+                // if (id == 1) {
+                //   id = 2;
+                // } else {
+                //   id = 1;
+                // }
+
+                User user = await UserApi().findById(id);
+                provider.setUser(user);
+              },
+              icon: Icon(Icons.person),
+            ),
             IconButton(
               onPressed: () {
                 SharedPrefs().setUserStatus(false);

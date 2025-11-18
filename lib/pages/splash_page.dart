@@ -1,7 +1,11 @@
+import 'package:aula_913/api/user_api.dart';
 import 'package:aula_913/db/shared_prefs.dart';
+import 'package:aula_913/domain/user.dart';
 import 'package:aula_913/pages/home_page.dart';
 import 'package:aula_913/pages/login_page.dart';
+import 'package:aula_913/providers/profile_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({super.key});
@@ -19,8 +23,15 @@ class _SplashPageState extends State<SplashPage> {
 
   Future<void> checkStatus() async {
     await Future.delayed(Duration(seconds: 3));
-    bool status = await SharedPrefs().getUserStatus();
-    if (status) {
+
+    // bool status = await SharedPrefs().getUserStatus();
+    int userId = await SharedPrefs().getUserID();
+
+    if (userId != 0) {
+      User? user = await UserApi().findById(userId);
+      ProfileProvider provider = context.read<ProfileProvider>();
+      provider.setUser(user);
+
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
