@@ -1,3 +1,5 @@
+/*Função desta tela: Retorna a lista completa de propriedades, que a ExplorePage vai usar para montar a ListView. Cada propriedade é um objeto, com suas informações específicas (cada local do airbnb)*/
+
 import 'package:aula_913/domain/Propriedade.dart';
 import 'package:sqflite/sqflite.dart';
 
