@@ -39,6 +39,7 @@ dependencies:
   sqflite:
   path:
   shared_preferences:
+  dio:
 
 dev_dependencies:
   flutter_test:

@@ -1,3 +1,4 @@
+import 'package:aula_913/api/address_api.dart';
 import 'package:aula_913/db/shared_prefs.dart';
 import 'package:aula_913/pages/explore_page.dart';
 import 'package:aula_913/pages/login_page.dart';
@@ -24,6 +25,8 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    AddressApi().findByCep('57300190');
+
     return Scaffold(
       appBar: AppBar(
         actions: buildActions(),

@@ -1,4 +1,4 @@
-import 'package:aula_913/db/propriedade_dao.dart';
+import 'package:aula_913/api/propriedades_api.dart';
 import 'package:aula_913/domain/Propriedade.dart';
 import 'package:aula_913/widget/container_propriedade.dart';
 import 'package:flutter/material.dart';
@@ -17,7 +17,8 @@ class _ExplorePageState extends State<ExplorePage> {
   @override
   void initState() {
     super.initState();
-    futureListaPropriedades = PropriedadeDao().listarPropriedades();
+    // futureListaPropriedades = PropriedadeDao().listarPropriedades();
+    futureListaPropriedades = PropriedadesApi().listarPropriedades();
   }
 
   @override
