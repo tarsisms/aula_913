@@ -1,6 +1,6 @@
-import 'package:aula_913/pages/splash_page.dart';
+import 'package:aula_913/pages/map_page.dart';
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(MaterialApp(home: SplashPage()));
+  runApp(MaterialApp(home: MapPage()));
 }
