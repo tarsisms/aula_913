@@ -7,7 +7,7 @@ class DBHelper {
   // se usar o await -> async e o Future<TipoDeRetorno>
   Future<Database> initDB() async {
     String path = await getDatabasesPath();
-    String dbName = 'airbnb-1.db';
+    String dbName = 'airbnb-v2.db';
 
     // Criar o path (caminho) do db (banco de dados)
     String dbPath = join(path, dbName);
@@ -36,7 +36,7 @@ class DBHelper {
     await db.execute(sql);
 
     sql =
-        "INSERT INTO Propriedade (total, avaliacao, dates, local, host, urlImagem) VALUES (1850.000, 4.92, '20-28 Jul', 'Campos do Jordão, Brazil', 'Superhost', 'https://cf.bstatic.com/xdata/images/hotel/max1024x768/667104136.jpg?k=0232c39cb40c3b9c7c3b60b2c5c9fa1d0c7c25b4e20e3354ae71df528b0a13a9&o=&hp=1');";
+        "INSERT INTO Propriedade (total, avaliacao, dates, local, host, urlImagem) VALUES (1850.000, 4.92, '20-28 Jul', 'Campos do Jordão, Brazil', 'Superhost', 'https://imgmd.net/images/v1/guia/1702554/o-que-fazer-em-campos-do-jordao.jpg');";
     await db.execute(sql);
 
     sql =
@@ -44,7 +44,7 @@ class DBHelper {
     await db.execute(sql);
 
     sql =
-        "INSERT INTO Propriedade (total, avaliacao, dates, local, host, urlImagem) VALUES (3200.000, 4.98, '28 Dec - 05 Jan', 'Florianópolis, Brazil', 'Superhost', 'https://cf.bstatic.com/xdata/images/hotel/max1024x768/173625874.jpg?k=5d9a7d0bcdb33c8c6959ac1d03cd869a7a34cbc1e16485486e518fb846fb664a&o=&hp=1');";
+        "INSERT INTO Propriedade (total, avaliacao, dates, local, host, urlImagem) VALUES (3200.000, 4.98, '28 Dec - 05 Jan', 'Florianópolis, Brazil', 'Superhost', 'https://images.squarespace-cdn.com/content/v1/5a87961cbe42d637c54cab93/1590068567445-M7OYHFFDUGIN6ORO1P4V/florianopolis-things-to-do.jpg');";
     await db.execute(sql);
 
     sql = '''CREATE TABLE USER ( 

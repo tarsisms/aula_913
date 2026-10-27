@@ -1,7 +1,9 @@
 import 'package:aula_913/domain/Propriedade.dart';
 import 'package:aula_913/pages/detail_page.dart';
 import 'package:flutter/material.dart';
+import 'package:geocoding/geocoding.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class ContainerPropriedade extends StatefulWidget {
   Propriedade propriedade;
@@ -16,12 +18,16 @@ class _ContainerPropriedadeState extends State<ContainerPropriedade> {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {
+      onTap: () async {
+        final Geocoding geocoding = Geocoding();
+        List<Location> locations = await geocoding.locationFromAddress(widget.propriedade.local);
+        LatLng location = LatLng(locations[0].latitude, locations[0].longitude);
+
         Navigator.push(
           context,
           MaterialPageRoute(
             builder: (context) {
-              return DetailPage(propriedade: widget.propriedade);
+              return DetailPage(propriedade: widget.propriedade, location: location);
             },
           ),
         );

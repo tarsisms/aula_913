@@ -1,11 +1,13 @@
 import 'package:aula_913/domain/Propriedade.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class DetailPage extends StatefulWidget {
   Propriedade propriedade;
+  LatLng location;
 
-  DetailPage({super.key, required this.propriedade});
+  DetailPage({super.key, required this.propriedade, required this.location});
 
   @override
   State<DetailPage> createState() => _DetailPageState();
@@ -23,7 +25,14 @@ class _DetailPageState extends State<DetailPage> {
         children: [
           Stack(
             children: [
-              Image.network(propriedade.urlImagem),
+              // Image.network(propriedade.urlImagem),
+              Container(
+                height: 400,
+                child: GoogleMap(
+                  mapType: MapType.normal,
+                  initialCameraPosition: CameraPosition(target: widget.location, zoom: 14),
+                ),
+              ),
               Positioned(
                 left: 16,
                 top: 16,

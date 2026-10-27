@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class MapPage extends StatefulWidget {
-  const MapPage({super.key});
+  late LatLng location;
+
+  MapPage({super.key, required location});
 
   @override
   State<MapPage> createState() => MapPageState();
@@ -13,17 +15,12 @@ class MapPage extends StatefulWidget {
 class MapPageState extends State<MapPage> {
   final Completer<GoogleMapController> _controller = Completer<GoogleMapController>();
 
-  static const CameraPosition _cameraPosition = CameraPosition(
-    target: LatLng(-9.745474035744953, -36.63135944830213),
-    zoom: 17,
-  );
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: GoogleMap(
         mapType: MapType.normal,
-        initialCameraPosition: _cameraPosition,
+        initialCameraPosition: CameraPosition(target: widget.location, zoom: 18),
         onMapCreated: (GoogleMapController controller) {
           _controller.complete(controller);
         },
