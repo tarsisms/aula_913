@@ -1,7 +1,7 @@
 import 'package:aula_913/domain/Propriedade.dart';
 import 'package:aula_913/pages/detail_page.dart';
 import 'package:flutter/material.dart';
-import 'package:geocoding/geocoding.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
@@ -19,15 +19,52 @@ class _ContainerPropriedadeState extends State<ContainerPropriedade> {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () async {
-        final Geocoding geocoding = Geocoding();
-        List<Location> locations = await geocoding.locationFromAddress(widget.propriedade.local);
-        LatLng location = LatLng(locations[0].latitude, locations[0].longitude);
+        // final Geocoding geocoding = Geocoding();
+        // List<Location> locations = await geocoding.locationFromAddress(widget.propriedade.local);
+        // LatLng location = LatLng(locations[0].latitude, locations[0].longitude);
+
+        // Exemplo de uso - Minha Localização
+        var myPosition = await _determinePosition();
+        LatLng myLocation = LatLng(myPosition.latitude, myPosition.longitude);
+        LatLng locationIFAL = LatLng(-9.745411162105748, -36.631326404465156);
+
+        // Medir distancia
+        double distance = Geolocator.distanceBetween(
+          myLocation.latitude,
+          myLocation.longitude,
+          locationIFAL.latitude,
+          locationIFAL.longitude,
+        );
+
+        // Converter p/ km
+        double distanceInKm = distance / 1000;
+
+        // Criar os Markers
+        Set<Marker> markers = {
+          Marker(
+            markerId: MarkerId('1'),
+            position: myLocation,
+            infoWindow: InfoWindow(title: 'Você está aqui!'),
+          ),
+          Marker(
+            markerId: MarkerId('2'),
+            position: locationIFAL,
+            infoWindow: InfoWindow(
+              title: 'IFAL - Arapiraca',
+              snippet: 'Distancia de ${distanceInKm.toStringAsFixed(2)} km',
+            ),
+          ),
+        };
 
         Navigator.push(
           context,
           MaterialPageRoute(
             builder: (context) {
-              return DetailPage(propriedade: widget.propriedade, location: location);
+              return DetailPage(
+                propriedade: widget.propriedade,
+                location: myLocation,
+                markers: markers,
+              );
             },
           ),
         );
@@ -77,6 +114,33 @@ class _ContainerPropriedadeState extends State<ContainerPropriedade> {
   }
 
   onTapContainer() {}
+
+  Future<Position> _determinePosition() async {
+    bool serviceEnabled;
+    LocationPermission permission;
+
+    // Test if location services are enabled.
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      return Future.error('Location services are disabled.');
+    }
+
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        return Future.error('Location permissions are denied');
+      }
+    }
+
+    if (permission == LocationPermission.deniedForever) {
+      return Future.error(
+        'Location permissions are permanently denied, we cannot request permissions.',
+      );
+    }
+
+    return await Geolocator.getCurrentPosition();
+  }
 
   buildText(String text) {
     return Text(text, style: GoogleFonts.inter());

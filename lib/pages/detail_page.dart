@@ -6,8 +6,9 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 class DetailPage extends StatefulWidget {
   Propriedade propriedade;
   LatLng location;
+  Set<Marker> markers;
 
-  DetailPage({super.key, required this.propriedade, required this.location});
+  DetailPage({super.key, required this.propriedade, required this.location, required this.markers});
 
   @override
   State<DetailPage> createState() => _DetailPageState();
@@ -30,6 +31,7 @@ class _DetailPageState extends State<DetailPage> {
                 height: 400,
                 child: GoogleMap(
                   mapType: MapType.normal,
+                  markers: widget.markers,
                   initialCameraPosition: CameraPosition(target: widget.location, zoom: 14),
                 ),
               ),

@@ -1,11 +1,15 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
     <application
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher"
         android:label="aula_913">
 
-        <meta-data android:name="com.google.android.geo.API_KEY" android:value="YOUR KEY HERE"/>
+        <meta-data android:name="com.google.android.geo.API_KEY"
+            android:value="YOUR KEY HERE"/>
 
         <activity
             android:name=".MainActivity"
