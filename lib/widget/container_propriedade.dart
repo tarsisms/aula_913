@@ -1,9 +1,11 @@
 import 'package:aula_913/domain/Propriedade.dart';
 import 'package:aula_913/pages/detail_page.dart';
+import 'package:aula_913/provider/favorite_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:provider/provider.dart';
 
 class ContainerPropriedade extends StatefulWidget {
   Propriedade propriedade;
@@ -86,11 +88,7 @@ class _ContainerPropriedadeState extends State<ContainerPropriedade> {
                   ),
                   borderRadius: BorderRadius.circular(8),
                 ),
-                Positioned(
-                  child: Icon(Icons.favorite, size: 36, color: Color(0xFFE41D56)),
-                  top: 16,
-                  right: 16,
-                ),
+                Positioned(child: buildIconButton(context), top: 16, right: 16),
               ],
             ),
             SizedBox(height: 8),
@@ -109,6 +107,22 @@ class _ContainerPropriedadeState extends State<ContainerPropriedade> {
             buildText(widget.propriedade.total),
           ],
         ),
+      ),
+    );
+  }
+
+  IconButton buildIconButton(BuildContext context) {
+    bool isFavorite = context.watch<FavoriteProvider>().isFavorite(widget.propriedade);
+
+    return IconButton(
+      onPressed: () {
+        // Add ao Provider
+        context.read<FavoriteProvider>().addFavorite(widget.propriedade);
+      },
+      icon: Icon(
+        isFavorite ? Icons.favorite : Icons.favorite_border,
+        size: 36,
+        color: isFavorite ? Color(0xFFE41D56) : Colors.grey,
       ),
     );
   }

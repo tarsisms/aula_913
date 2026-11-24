@@ -1,4 +1,5 @@
 class Propriedade {
+  late int id;
   late String urlImagem;
   late String local;
   late String host;
@@ -14,8 +15,8 @@ class Propriedade {
   });
 
   Propriedade.fromJson(Map<String, dynamic> json) {
-    // id = json['id'];
     // avaliacao = json['avaliacao'];
+    id = json['id'];
     total = (json['total']).toString();
     dates = json['dates'];
     local = json['local'];

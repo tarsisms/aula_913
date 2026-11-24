@@ -1,6 +1,7 @@
 import 'package:aula_913/api/address_api.dart';
 import 'package:aula_913/db/shared_prefs.dart';
 import 'package:aula_913/pages/explore_page.dart';
+import 'package:aula_913/pages/favorite_page.dart';
 import 'package:aula_913/pages/login_page.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -17,7 +18,7 @@ class _HomePageState extends State<HomePage> {
   int selectedIndex = 0;
   List pages = [
     ExplorePage(),
-    Center(child: Text('Pagina 1', style: TextStyle(fontSize: 32))),
+    FavoritePage(),
     Center(child: Text('Pagina 2', style: TextStyle(fontSize: 32))),
     Center(child: Text('Pagina 3', style: TextStyle(fontSize: 32))),
     Center(child: Text('Pagina 4', style: TextStyle(fontSize: 32))),
